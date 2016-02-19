@@ -10,15 +10,15 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "git@bitbucket.org:promptinc/prompt-lib.git"
+            "url": "git@bitbucket.org:prompt-app-inc/prompt-lib.git"
         },
         {
             "type": "vcs",
-            "url": "git@bitbucket.org:promptinc/prompt-db.git"
+            "url": "git@bitbucket.org:prompt-app-inc/prompt-db.git"
         }
     ],    
     "require": {
         "mashape/unirest-php": "~2.6",       
-        "promptinc/prompt-lib": "dev-master"        
+        "prompt-app-inc/prompt-lib": "dev-master"        
     }
 }
