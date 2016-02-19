@@ -1,0 +1,13 @@
+RewriteEngine  on
+
+RewriteBase /
+
+# If the requested filename exists, simply serve it.
+# We only want to let Apache serve files and not directories.
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule .? - [L]
+
+# Otherwise, remap the API URL to the main controller
+RewriteCond %{REQUEST_URI} ^/api/
+RewriteRule ^api/(.*)$ api/v$1/index.php [L]
+

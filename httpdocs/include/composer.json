@@ -1,0 +1,24 @@
+{
+    "name": "prompt/include",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "James Cundle",
+            "email": "james@promptapp.io"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:promptinc/prompt-lib.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:promptinc/prompt-db.git"
+        }
+    ],    
+    "require": {
+        "mashape/unirest-php": "~2.6",       
+        "promptinc/prompt-lib": "dev-master"        
+    }
+}

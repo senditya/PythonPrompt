@@ -1,0 +1,23 @@
+{
+    "uuid": "82b8f880148db12dcdb30135b892ab8cddc6fcd25e1f24e140d66fdf38972bee",
+    "type": "message",
+    "slots": [],
+    "prerequisites": {
+        "shippingaddress": {
+            "friendlyname": "James Jones",
+            "firstname": null,
+            "lastname": null,
+            "address1": "4024 Alto Canyon",
+            "address2": "",
+            "address3": "",
+            "city": "Mountain View",
+            "state": "CA",
+            "zipcode": "94041",
+            "countrycode": "US",
+            "telephone": null,
+            "verified": "0"
+        }
+    },
+    "message": "Hello World!",
+    "vars": []
+}
