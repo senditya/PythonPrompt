@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "23ea1cf8b45417e15df401a126e3777b",
+    "hash": "0355291f14f9c299faf71eba328a2b69",
     "packages": [
         {
             "name": "mashape/unirest-php",
@@ -51,12 +51,12 @@
             "time": "2016-02-16 16:45:52"
         },
         {
-            "name": "promptinc/prompt-lib",
+            "name": "prompt-app-inc/prompt-lib",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:promptinc/prompt-lib.git",
-                "reference": "a85720a7b6b10b0edfc795bbedc0aa8d4c213292"
+                "url": "git@bitbucket.org:prompt-app-inc/prompt-lib.git",
+                "reference": "e3c5626e6ac1ae90de11d3d20a2ead2b3138d2d5"
             },
             "require": {
                 "php": ">=5.4.0"
@@ -74,7 +74,7 @@
                 "MIT"
             ],
             "description": "Prompt Bot Class Library PHP",
-            "homepage": "https://bitbucket.org/promptinc/prompt-lib",
+            "homepage": "https://bitbucket.org/prompt-app-inc/prompt-lib",
             "keywords": [
                 "bot",
                 "client",
@@ -83,14 +83,14 @@
             "support": {
                 "email": "james@promptapp.io"
             },
-            "time": "2016-02-16 13:26:45"
+            "time": "2016-02-20 10:40:08"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "promptinc/prompt-lib": 20
+        "prompt-app-inc/prompt-lib": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

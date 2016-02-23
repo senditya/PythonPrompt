@@ -74,65 +74,37 @@ if ($request->isAPIAuthenticated()) {
     // All responses are based on Results\ResultItem abstract class
     // This example has implemented it, and the various data elements populated
     $resultitem = new Bot\Result\ResultItem();
-    
-    // Is this a regular message? This is how the majority of your calls will be processed.
-    if ($request->getMessageType() == "message") {
 
-        // Typically we'll need to extra tokenised data. There is an example in Bot\Parsers\PromptParser();
-        $parser = new Bot\Parsers\PromptParser();
-        $tokens = $parser->getTokens($request->getMessage());
+    // Is this an external webook? e.g. A 3rd Party calling your bot.
+    if ($request->getMessageType() == "webhook") {
 
-        // Calling an external API? Create a new utility class and call it here
-        $hw = new HelloWorld\HelloWorld();
-        // Process it
-        $hw->process($tokens);
-        // And grab the result    
-        $message = $hw->getMessageText();
-
-        // Prompt can send us some it its core date that we define as a 'prerequisite'
-        // We can extract it from the the request object.
-        $personalinfo = $request->getPrerequisite('personalinfo');
-
-        $firstname = (isset($personalinfo['firstname'])) ? $personalinfo['firstname'] : NULL;
-
-        if ($firstname) {
-            $message .= sprintf(' You must be %s.', $firstname);
+        // We should ideally check for a key from the 3rd party host here to ensure it's really them
+        // You would add this to your callback URL in the form ?key=***RANDOM_KEY***
+        if (!$request->getGETVar('key') == '*** YOUR_KEY_YOU_INCLUDE_IN_YOUR_CALLBACK ***') {
+            $request->sendFailedAuthentication(false);
+            die("Webhook Key is invalid.");
         }
 
-        if ($request->getMessage()) {
-            $message .= sprintf(' You said "%s".', $request->getMessage());
-        }
-        
-        // Can Prompt send this response as an MMS object? (with images)
-        $resultitem->setSendMMS(true);
+        // Process the web hook
+        $myid = $request->getGETVar("confirmation_id");
 
-        // Set the reply text message
-        $resultitem->setTextMessage($message);
+        // The Webhook reply can be any string the caller expects, but is typically blank
+        // If you want to send the user back to the chat interface, use the command string ||REDIRECT||
+        $resultitem->setWebhookReply(NULL);
 
-        // Set the speech text for speech devices (optional)
-        $resultitem->setSpeechText($message);
-
-        // Images can be added to the result item, with an object type of \Bot\Results\ResultImage()
-        $image = new Prompt\Bot\Results\ResultImage();
-        $image->setImageURL('http://api.dev.promptapp.io/images/random/helloworld.gif');
-        $image->setAltText('Hello World!');
-        $resultitem->addImage($image);
-        
-        // Web Authentication
-        $resultitem->setShowAuthURL(false);
-        // If using oAuth or similar, you can set a unique callback key here and set {{AUTH_STATE}} in your webauth URL
-        // $resultitem->setAuthState('**UNIQUEID**');     
-        
         // We can set the status code of the reply
         $response->setStatusCode('OK');
-                    
+    }
+
+    // Is this a regular message? This is how the majority of your calls will be processed.
+    if ($request->getMessageType() == "message") {
+        // foo
     }
 
     // Finaly, we reply with the result item we've created. 
     $response->reply($resultitem);
 
     // And we are done!
-    
 } else {
     // Failed authentication sends a common response back to Prompt
     $request->sendFailedAuthentication();

@@ -55,7 +55,6 @@ require_once(sprintf("%s/include/initsystem_inc.php", $_SERVER['DOCUMENT_ROOT'])
 // Load our request and response objects
 use Prompt\Bot\Request;
 use Prompt\Bot\Response;
-
 // Access our own Bot utility classes
 use Bot\HelloWorld;
 
@@ -74,58 +73,33 @@ if ($request->isAPIAuthenticated()) {
     // All responses are based on Results\ResultItem abstract class
     // This example has implemented it, and the various data elements populated
     $resultitem = new Bot\Result\ResultItem();
-    
-    // Is this a regular message? This is how the majority of your calls will be processed.
-    if ($request->getMessageType() == "message") {
 
-        // Typically we'll need to extra tokenised data. There is an example in Bot\Parsers\PromptParser();
-        $parser = new Bot\Parsers\PromptParser();
-        $tokens = $parser->getTokens($request->getMessage());
+    // Is this an WebAauth call? e.g. You have set up an oAuth call back.
+    if ($request->getMessageType() == "webauth") {
+        // Check we have been sent the correct auth key in the call back
+        $webauth->setAPIKey('*** YOUR_WEBAUTH_KEY ***');
 
-        // Calling an external API? Create a new utility class and call it here
-        $hw = new HelloWorld\HelloWorld();
-        // Process it
-        $hw->process($tokens);
-        // And grab the result    
-        $message = $hw->getMessageText();
-
-        // Prompt can send us some it its core date that we define as a 'prerequisite'
-        // We can extract it from the the request object.
-        $personalinfo = $request->getPrerequisite('personalinfo');
-
-        $firstname = (isset($personalinfo['firstname'])) ? $personalinfo['firstname'] : NULL;
-
-        if ($firstname) {
-            $message .= sprintf(' You must be %s.', $firstname);
+        if (!$webauth->isWebAuthAuthenticated()) {
+            $request->sendFailedAuthentication(false);
+            die("WebAuth Key is invalid.");
         }
 
-        if ($request->getMessage()) {
-            $message .= sprintf(' You said "%s".', $request->getMessage());
-        }
-        
-        // Can Prompt send this response as an MMS object? (with images)
-        $resultitem->setSendMMS(true);
+        // Passed auth, so now process our web auth.
+        /*
+          $foo->processCallback(array('redirect_uri' => $webauth->getVar('redirect_uri'),
+          'state' => $webauth->getGETVar('state'),
+          'code' => $webauth->getGETVar('code'),
+          )));
+         */
 
-        // Set the reply text message
-        $resultitem->setTextMessage($message);
-
-        // Set the speech text for speech devices (optional)
-        $resultitem->setSpeechText($message);
-
-        // Images can be added to the result item, with an object type of \Bot\Results\ResultImage()
-        $image = new Prompt\Bot\Results\ResultImage();
-        $image->setImageURL('http://api.dev.promptapp.io/images/random/helloworld.gif');
-        $image->setAltText('Hello World!');
-        $resultitem->addImage($image);
-        
-        // Web Authentication
-        $resultitem->setShowAuthURL(false);
-        // If using oAuth or similar, you can set a unique callback key here and set {{AUTH_STATE}} in your webauth URL
-        // $resultitem->setAuthState('**UNIQUEID**');     
-        
         // We can set the status code of the reply
         $response->setStatusCode('OK');
-                    
+        
+    }
+
+    // Is this a regular message? This is how the majority of your calls will be processed.
+    if ($request->getMessageType() == "message") {
+        // foo
     }
 
     // Finaly, we reply with the result item we've created. 

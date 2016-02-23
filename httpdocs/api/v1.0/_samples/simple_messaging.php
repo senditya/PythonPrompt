@@ -122,11 +122,11 @@ if ($request->isAPIAuthenticated()) {
         $resultitem->setShowAuthURL(false);
         // If using oAuth or similar, you can set a unique callback key here and set {{AUTH_STATE}} in your webauth URL
         // $resultitem->setAuthState('**UNIQUEID**');     
-        
-        // We can set the status code of the reply
-        $response->setStatusCode('OK');
-                    
+            
     }
+
+    // We can set the status code of the reply
+    $response->setStatusCode('OK');
 
     // Finaly, we reply with the result item we've created. 
     $response->reply($resultitem);
