@@ -10,11 +10,11 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "git@bitbucket.org:prompt-app-inc/prompt-lib.git"
+            "url": "https://bitbucket.org/prompt-app-inc/prompt-lib.git"
         },
         {
             "type": "vcs",
-            "url": "git@bitbucket.org:prompt-app-inc/prompt-db.git"
+            "url": "https://bitbucket.org/prompt-app-inc/prompt-db.git"
         }
     ],    
     "require": {

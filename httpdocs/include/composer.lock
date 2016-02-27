@@ -1,10 +1,11 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0355291f14f9c299faf71eba328a2b69",
+    "hash": "73b56d7ae87fb1c3ac17a4a4f3e9c221",
+    "content-hash": "58096b56bf151b7cb63a5cf804eb3e09",
     "packages": [
         {
             "name": "mashape/unirest-php",
@@ -55,8 +56,14 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:prompt-app-inc/prompt-lib.git",
-                "reference": "e3c5626e6ac1ae90de11d3d20a2ead2b3138d2d5"
+                "url": "https://bitbucket.org/prompt-app-inc/prompt-lib.git",
+                "reference": "cd2b331dc5eee1cecc5579f49d6dda4a3238df79"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://bitbucket.org/prompt-app-inc/prompt-lib/get/cd2b331dc5eee1cecc5579f49d6dda4a3238df79.zip",
+                "reference": "cd2b331dc5eee1cecc5579f49d6dda4a3238df79",
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0"
@@ -83,7 +90,7 @@
             "support": {
                 "email": "james@promptapp.io"
             },
-            "time": "2016-02-20 10:40:08"
+            "time": "2016-02-25 18:47:54"
         }
     ],
     "packages-dev": [],
