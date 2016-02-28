@@ -22,7 +22,7 @@ CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'Google Calendar API Python Quickstart'
 
 
-def get_credentials():
+def get_credentials(clientID = 'client0'):
     """Gets valid user credentials from storage.
 
     If nothing has been stored, or if the stored credentials are invalid,
@@ -31,12 +31,12 @@ def get_credentials():
     Returns:
         Credentials, the obtained credential.
     """
-    home_dir = os.path.expanduser('~')
-    credential_dir = os.path.join(home_dir, '.credentials')
+    # home_dir = os.path.expanduser('~')
+    credential_dir = os.path.join('..', 'credentials')
     if not os.path.exists(credential_dir):
         os.makedirs(credential_dir)
     credential_path = os.path.join(credential_dir,
-                                   'calendar-python-quickstart.json')
+                                   clientID+'.json')
 
     store = oauth2client.file.Storage(credential_path)
     credentials = store.get()

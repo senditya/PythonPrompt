@@ -11,12 +11,12 @@ from oauth2client.tools import run_flow
 from oauth2client.client import flow_from_clientsecrets
 
 
-def main():
+def getAuth(clientID = 'client0'):
 
     scope = 'https://www.googleapis.com/auth/calendar'
     flow = flow_from_clientsecrets('client_secret.json', scope=scope)
 
-    storage = Storage('credentials.dat')
+    storage = Storage('../credentials/'+clientID+'.json')
     credentials = storage.get()
 
     class fakeargparse(object):  # fake argparse.Namespace
@@ -27,6 +27,8 @@ def main():
     if credentials is None or credentials.invalid:
         credentials = run_flow(flow, storage, flags)
 
+def main():
+    getAuth()
 
 if __name__ == '__main__':
     main()
