@@ -50,7 +50,7 @@ def get_credentials():
         print('Storing credentials to ' + credential_path)
     return credentials
 
-def get_events(day = 'tomorrow'):
+def main():
     """Shows basic usage of the Google Calendar API.
 
     Creates a Google Calendar API service object and outputs a list of the next
@@ -60,44 +60,19 @@ def get_events(day = 'tomorrow'):
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('calendar', 'v3', http=http)
 
-    UTC_OFFSET_TIMEDELTA = datetime.datetime.utcnow() - datetime.datetime.now()
-
-    date = datetime.datetime.utcnow()#.isoformat() + 'Z' # 'Z' indicates UTC time
-    if day == 'tomorrow':
-        date += datetime.timedelta(days=1)
-
-    start_date = datetime.datetime(date.year, date.month, date.day) + UTC_OFFSET_TIMEDELTA + datetime.timedelta(0,1)
-    end_date = start_date + datetime.timedelta(days=1) - datetime.timedelta(0,1)
-    start_date = start_date.isoformat() + 'Z'
-    end_date = end_date.isoformat() + 'Z'
-    #print(start_date, end_date)
-
-    #print('Getting the upcoming events for the day')
+    now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
+    print('Getting the upcoming 10 events')
     eventsResult = service.events().list(
-        calendarId='primary', timeMin=start_date, timeMax=end_date, singleEvents=True,
+        calendarId='primary', timeMin=now, maxResults=10, singleEvents=True,
         orderBy='startTime').execute()
     events = eventsResult.get('items', [])
 
-    schedule_dict = {}
+    if not events:
+        print('No upcoming events found.')
     for event in events:
-        event_dict = {}
+        start = event['start'].get('dateTime', event['start'].get('date'))
+        print(start, event['summary'])
 
-        time = event['start'].get('dateTime')[11:19]
-        event_dict['time'] = time
-
-        if 'summary' in event.keys():
-            event_dict['summary'] = event['summary']
-
-        if 'location' in event.keys():
-            event_dict['location'] = event['location']
-
-        schedule_dict[time] = event_dict
-
-    return schedule_dict
-
-
-def main():
-    get_events()
 
 if __name__ == '__main__':
     main()
