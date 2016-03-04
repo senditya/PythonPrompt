@@ -9,15 +9,23 @@ from oauth2client import tools
 
 import datetime
 
-# try:
-#     import argparse
-#     flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-# except ImportError:
-#     flags = None
+# class fakeargparse(object):  # fake argparse.Namespace
+#     noauth_local_webserver = False
+#     logging_level = "ERROR"
+#     #auth_host_name = 'htttp://prompthelloworld.herokuapp.com'
+#     #auth_host_port = [None]
 
-import argparse
-flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-flags.noauth_local_webserver=True
+# flags = fakeargparse()
+
+try:
+    import argparse
+    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
+except ImportError:
+    flags = None
+
+flags.noauth_local_webserver = False
+#flags.auth_host_name = 'prompthelloworld.herokuapp.com'
+flags.auth_host_port = [2564]
 
 # If modifying these scopes, delete your previously saved credentials
 # at ~/.credentials/calendar-python-quickstart.json
